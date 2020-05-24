@@ -1,3 +1,31 @@
 <aura:component>
+    <aura:attribute name="title" type="String" default="" />
+    <aura:attribute name="messageList" type="List" default="[]" />
+    <aura:attribute name="actionLabel" type="String" default="Ok" />
+    <aura:attribute name="showThis" type="Boolean" default="false" />
 
+    <aura:method name="show" action="{!c.onShow}" description="Receive the params to display title and messages, and shows the prompt"> 
+        <aura:attribute name="title" type="String" default=""/> 
+        <aura:attribute name="messageList" type="List" default="[]"/> 
+    </aura:method>
+    <aura:if isTrue="{!v.showThis}">
+        <div class="demo-only" >
+            <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-theme_alert-texture slds-theme_error">
+                        <h2 class="slds-text-heading_medium" id="prompt-heading-id">{!v.title}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="prompt-message-wrapper">
+                        <aura:iteration items="{!v.messageList}" var="item">
+                            <p>{!item}</p>
+                        </aura:iteration>
+                    </div>
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <lightning:button label="{!v.actionLabel}" title="{!v.actionLabel}" onclick="{! c.onClick }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
 </aura:component>	
